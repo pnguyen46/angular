@@ -6,12 +6,13 @@
         <div class="row">
             <div class="col-md-2">Filter by:</div>
             <div class="col-md-4">
-                <input type="text" />
+                <input type="text" 
+                        [(ngModel)]="listFilter" /> <!--2-way binding [()]-->
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <h4>Filter by: </h4>
+                <h4>Filter by: {{listFilter}} </h4>
             </div>
         </div>
 
@@ -20,8 +21,9 @@
                 <thead>
                     <tr>
                         <th>
-                            <button class = "btn btn-primary">
-                                Show Image
+                            <button class = "btn btn-primary"
+                            (click)="toggleImage()"><!--Event binding-->
+                                {{showImage ? 'Hide' : 'Show'}} Image <!--Interpolation with conditional statement-->
                             </button>
                         </th>
                         <th>Product</th>
@@ -31,11 +33,15 @@
                         <th>Star Rating</th>
                     </tr>
                     <tr *ngFor="let product of products"> <!--table row & children are repeated for each product in the list of products. Template input variable -> product-->
-                        <td></td>
-                        <td>{{ product.productName}}</td><!-- Interpolation is used-->
-                        <td>{{ product.productCode}}</td>
+                        <td>
+                            <!--Property binding. One way binding. *ngIf is for event binding-->
+                            <img  [src] = 'product.imageUrl' *ngIf='showImage' [title] = 'product.productName' 
+                            [style.width.px] = imageWidth [style.margin.px] = imageMargin>
+                        </td>
+                        <td>{{ product.productName}}</td><!-- Interpolation (Data binding). No quotation -->
+                        <td>{{ product.productCode | lowercase}}</td> <!--Pipe (|) -->
                         <td>{{ product.releaseDate}}</td>
-                        <td>{{ product.price}}</td>
+                        <td>{{ product.price | currency:'USD':'symbol': '1.2-2'}}</td> <!--Pipe with parameter-->
                         <td>{{ product.starRating}}</td>
                     </tr>
                 </thead>
