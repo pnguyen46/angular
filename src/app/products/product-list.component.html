@@ -44,7 +44,7 @@
                         <td>{{ product.productCode | lowercase | convertToSpaces:'-'}}</td> <!--Pipe (|). Custom Pipe (convertToSpaces) -->
                         <td>{{ product.releaseDate}}</td>
                         <td>{{ product.price | currency:'USD':'symbol': '1.2-2'}}</td> <!--Pipe with parameter-->
-                        <td>{{ product.starRating}}</td>
+                        <td><pm-star [rating] = 'product.starRating' (ratingClicked) = 'onRatingClicked($event)'></pm-star></td> <!--Nested component. @Input() w/ property binding. 3rd for @Output: $event is the passed data from the emit() of the onClick()-->
                     </tr>
                 </tbody>
             </table>
