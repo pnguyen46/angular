@@ -13,6 +13,7 @@ export class ProductListComponent implements OnInit {
     imageWidth: number = 50;
     imageMargin: number = 2;
     showImage: boolean = false;
+    errorMessage:string;
 
     //getter and setter methods
     _listFilter: string;
@@ -46,8 +47,18 @@ export class ProductListComponent implements OnInit {
     }
 
     ngOnInit():void{
-        this.products = this.productService.getProduct();
-        this.filteredProducts = this.products;
+        // this.products = this.productService.getProducts();
+        this.productService.getProducts().subscribe({
+            next: products => {
+                this.products = products;
+                this.filteredProducts = this.products;// make sure the product array is loaded before assigned to filteredProduct array
+            },
+            error: err => {
+                this.errorMessage = err;
+            }
+            
+        });
+        // this.filteredProducts = this.products;
     }
     //4th step for @Output
     onRatingClicked(message:string): void {
