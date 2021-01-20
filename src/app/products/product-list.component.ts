@@ -3,7 +3,7 @@ import{IProduct} from './product';
 import { ProductService } from './product.service';
 
 @Component({
-    selector: 'pm-products',
+    // selector: 'pm-products',
     templateUrl: './product-list.component.html',
     styleUrls: ['./product-list.component.css'] //import css specifically for this component. use comma in array to add more stylesheet
 })
