@@ -15,9 +15,19 @@ export class ProductListComponent implements OnInit {
     showImage: boolean = false;
     errorMessage:string;
 
+    //implements Product Interface
+    filteredProducts: IProduct[];
+    products: IProduct[] = [];
+
+
+    // constructor to set default values
+    constructor(private productService: ProductService){
+        // this.listFilter = 'cart';
+    }
+
     //getter and setter methods
     _listFilter: string;
-    
+
     get listFilter() : string {
         return this._listFilter;
     }
@@ -25,15 +35,7 @@ export class ProductListComponent implements OnInit {
         this._listFilter = value;
         this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
     }
-    
-    //implemented Product Interface
-    filteredProducts: IProduct[];
-    products: IProduct[] = [];
 
-    // constructor to set default values
-    constructor(private productService: ProductService){
-        // this.listFilter = 'cart';
-    }
 
     performFilter(filterBy: string) : IProduct[]{
         filterBy = filterBy.toLocaleLowerCase();
@@ -42,10 +44,12 @@ export class ProductListComponent implements OnInit {
         });
     }
 
+    //Use to display image
     toggleImage():void {
         this.showImage = !this.showImage;
     }
 
+    
     ngOnInit():void{
         // this.products = this.productService.getProducts();
         this.productService.getProducts().subscribe({
@@ -60,6 +64,8 @@ export class ProductListComponent implements OnInit {
         });
         // this.filteredProducts = this.products;
     }
+
+    //Pass data out of nested component
     //4th step for @Output
     onRatingClicked(message:string): void {
         this.pageTitle = 'Product List: ' + message;

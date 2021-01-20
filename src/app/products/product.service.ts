@@ -14,6 +14,7 @@ export class ProductService{
 
     private productUrl = 'api/products/products.json'
 
+    
     constructor(private http: HttpClient){
         
     }
@@ -21,8 +22,8 @@ export class ProductService{
     getProducts():Observable<IProduct[]> {
         //HttpClient & Observable Setup, exception handling
         return this.http.get<IProduct[]>(this.productUrl).pipe(
-            tap(data => console.log('All: ' + JSON.stringify(data))),
-            catchError(this.handleError)
+            tap(data => console.log('All: ' + JSON.stringify(data))), // access data directly. allow for easy debug
+            catchError(this.handleError)// handle errors from server-side and client-side
         );
         // [ 
         //     {
