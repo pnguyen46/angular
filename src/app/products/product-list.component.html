@@ -40,7 +40,10 @@
                             <img  [src] = 'product.imageUrl' *ngIf='showImage' [title] = 'product.productName' 
                             [style.width.px] = imageWidth [style.margin.px] = imageMargin>
                         </td>
-                        <td>{{ product.productName}}</td><!-- Interpolation (Data binding). No quotation -->
+                        <td>
+                                            <!--path url,parameter values-->
+                            <a [routerLink]="['/products', product.productId]">{{ product.productName}}<!-- Interpolation (Data binding). No quotation.--></a> <!--Passing parameter to Route-->
+                        </td>
                         <td>{{ product.productCode | lowercase | convertToSpaces:'-'}}</td> <!--Pipe (|). Custom Pipe (convertToSpaces) -->
                         <td>{{ product.releaseDate}}</td>
                         <td>{{ product.price | currency:'USD':'symbol': '1.2-2'}}</td> <!--Pipe with parameter-->
