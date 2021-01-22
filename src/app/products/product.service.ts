@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { throwError } from 'rxjs/internal/observable/throwError';
-import {tap,catchError} from 'rxjs/operators';
+import {tap,catchError,map} from 'rxjs/operators';
 import { IProduct } from './product';
 
 
@@ -50,6 +50,17 @@ export class ProductService{
 
         
     }
+    
+    getProduct(id:number): Observable<IProduct| undefined> {
+        return this.getProducts().pipe(
+            map((products:IProduct[]) => {
+                return products.find((prod)=> {
+                    return prod.productId === id;
+                });
+            })
+        );
+    }
+
 
     private handleError(err : HttpErrorResponse){
         //in a real world app, we may send the server to some remote logging infrastructure
